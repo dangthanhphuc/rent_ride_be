@@ -34,6 +34,9 @@ public class User implements UserDetails {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
     @Column(name = "username")
     private String username;
 
