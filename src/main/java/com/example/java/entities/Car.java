@@ -32,6 +32,9 @@ public class Car {
     @Column(name = "rent", nullable = false)
     private boolean rent;
 
+    @Column(name = "price", nullable = false)
+    private int price;
+
     // Dùng để lọc xe có tài xế
     @Column(name = "driver" , nullable = false)
     private boolean driver;
@@ -47,7 +50,7 @@ public class Car {
     private Model model;
 
     // Cho phép null, vì xe có thể không giao tận nơi
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 

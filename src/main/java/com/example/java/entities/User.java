@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "license_id", unique = true)
     private License licence;
 
