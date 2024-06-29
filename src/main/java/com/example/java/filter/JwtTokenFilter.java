@@ -90,7 +90,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of("**", "GET")
         );
 
-
         for(Pair<String, String> pair : byPassToken) {
             String servletPath = pair.getLeft();
             String requestMethod = pair.getRight();
