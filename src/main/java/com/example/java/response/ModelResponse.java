@@ -21,7 +21,7 @@ public class ModelResponse {
     private String name;
 
     @JsonProperty("production_year")
-    private LocalDate productionYear;
+    private int productionYear;
 
     private int seats;
 

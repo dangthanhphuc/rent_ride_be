@@ -72,8 +72,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         } catch(AccessDeniedException e) {
             response.sendError(
-                    HttpServletResponse.SC_FORBIDDEN,
-                    STR."User does not have access : \{e.getMessage()}"
+                    HttpServletResponse.SC_FORBIDDEN, "User does not have access :" +e.getMessage()
             );
         } catch (Exception e){
             response.sendError(
