@@ -27,7 +27,7 @@ public class Model {
     private int seat;
 
     @Column(name = "production_year", nullable = false)
-    private LocalDate productionYear;
+    private int productionYear;
 
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)

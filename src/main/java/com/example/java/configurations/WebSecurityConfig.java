@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebSecurity // Mở web security
@@ -42,6 +43,9 @@ public class WebSecurityConfig {
                     requests
                             .requestMatchers(
                                 GET, "/**"
+                            ).permitAll()
+                            .requestMatchers(
+                                    POST, "/**"
                             ).permitAll()
                             .anyRequest()
                             .permitAll();
