@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 @RequestMapping("/images")
 public class ImageController {
 
-
     @GetMapping("/{path}/{imageName}")
     public ResponseEntity<?> viewImage(@PathVariable String imageName, @PathVariable String path) {
         try {

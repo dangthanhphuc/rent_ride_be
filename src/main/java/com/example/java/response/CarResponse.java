@@ -1,9 +1,6 @@
 package com.example.java.response;
 
-import com.example.java.entities.Car;
-import com.example.java.entities.Delivery;
-import com.example.java.entities.Model;
-import com.example.java.entities.User;
+import com.example.java.entities.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.parameters.P;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -30,11 +29,15 @@ public class CarResponse {
 
     private boolean driver;
 
+    private int price;
+
     @JsonProperty("max_km")
     private int maxKm;
 
     @JsonProperty("over_fee")
     private int overFee;
+
+    private boolean instant;
 
     @JsonProperty("model")
     private ModelResponse modelResponse;
@@ -45,11 +48,16 @@ public class CarResponse {
     @JsonProperty("user")
     private UserResponse userResponse;
 
+    @JsonProperty("utility_details")
+    private List<UtilityDetailResponse> utilityDetails;
+
     public static CarResponse formCar(Car car) {
         CarResponse carResponse = CarResponse.builder()
                 .id(car.getId())
                 .licensePlate(car.getLicensePlate())
                 .address(car.getAddress())
+                .price(car.getPrice())
+                .instant(car.isInstant())
                 .mortgage(car.isMortgage())
                 .rent(car.isRent())
                 .driver(car.isDriver())
@@ -57,6 +65,7 @@ public class CarResponse {
                 .overFee(car.getOverFee())
                 .modelResponse(ModelResponse.fromModel(car.getModel()))
                 .userResponse(UserResponse.fromUser(car.getUser()))
+                .utilityDetails(car.getUtilityDetail().stream().map(UtilityDetailResponse::fromUtilityDetail).toList())
                 .build();
 
         if(car.getDelivery() != null) {
