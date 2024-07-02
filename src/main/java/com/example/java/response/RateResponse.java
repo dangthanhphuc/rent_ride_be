@@ -13,32 +13,21 @@ import java.time.LocalDate;
 public class RateResponse {
 
     private Long id;
-
-    @JsonProperty("star")
+    private CarResponse car;
+    private UserResponse user;
     private int star;
-
-    @JsonProperty("comment")
     private String comment;
-
-    @JsonProperty("date")
     private LocalDate date;
 
-    @JsonProperty("car")
-    private CarResponse carResponse;
-
-    @JsonProperty("user")
-    private UserResponse userResponse;
-
     public static RateResponse fromRate(Rate rate) {
-        RateResponse rateResponse = RateResponse.builder()
+        return RateResponse.builder()
                 .id(rate.getId())
+                .car(CarResponse.formCar(rate.getCar()))
+                .user(UserResponse.fromUser(rate.getUser()))
                 .star(rate.getStar())
                 .comment(rate.getComment())
                 .date(rate.getDate())
-                .carResponse(CarResponse.formCar(rate.getCar()))
-                .userResponse(UserResponse.fromUser(rate.getUser()))
                 .build();
-
-        return rateResponse;
     }
+
 }

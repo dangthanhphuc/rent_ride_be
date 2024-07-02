@@ -9,9 +9,13 @@ import com.example.java.exceptions.IdNotFoundException;
 import java.util.List;
 
 public interface IRateService {
+
+    List<Rate> getRatesByCar(Long carId) throws IdNotFoundException;
+
     Rate addRate(RateDTO rateDTO);
     Rate updateRate(Long rateId, RateDTO rateDTO) throws IdNotFoundException;
     void deleteRate(Long rateId) throws IdNotFoundException;
     Rate getRate(Long rateId) throws IdNotFoundException;
     List<Rate> getRates();
+
 }

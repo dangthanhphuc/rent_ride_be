@@ -9,6 +9,21 @@ import com.example.java.response.UtilityResponse;
 import com.example.java.services.utility.IUtilityService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +37,23 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/utilities")
 public class UtilityController {
-    private final IUtilityService utilityService;
+         private final IUtilityService utilityService;
+
+    @GetMapping("")
+    public ResponseEntity<ResponseObject> getUtilities() {
+
+        List<Utility> utilities = utilityService.getUtilities();
+
+        return ResponseEntity.ok().body(
+                ResponseObject.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .message("Utilities get successfully !")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .data(utilities.stream().map(UtilityResponse::formUtility).toList())
+                        .build()
+        );
+    }
 
     @PostMapping("/add")
     public ResponseEntity<ResponseObject> addUtility(
@@ -100,20 +131,6 @@ public class UtilityController {
                         .status(OK)
                         .statusCode(OK.value())
                         .data(UtilityResponse.formUtility(utility))
-                        .build()
-        );
-    }
-
-    @GetMapping("")
-    public ResponseEntity<ResponseObject> getCategories() {
-        List<Utility> utilities = utilityService.getUtilities();
-        return ResponseEntity.ok().body(
-                ResponseObject.builder()
-                        .timeStamp(LocalDateTime.now())
-                        .message("Utilities got successfully !")
-                        .status(OK)
-                        .statusCode(OK.value())
-                        .data(utilities.stream().map(UtilityResponse::formUtility))
                         .build()
         );
     }

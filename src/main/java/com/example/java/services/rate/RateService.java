@@ -8,15 +8,30 @@ import com.example.java.repositories.RateRepo;
 import com.example.java.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class RateService implements IRateService{
-    private final RateRepo rateRepo;
+
+        private final RateRepo rateRepo;
     private final CarRepo carRepo;
     private final UserRepo userRepo;
+
+    @Transactional(rollbackFor = IdNotFoundException.class)
+    @Override
+    public List<Rate> getRatesByCar(Long carId) throws IdNotFoundException {
+        Car existingCar = carRepo.findById(carId)
+                .orElseThrow(
+                    () -> new IdNotFoundException("Car not found")
+                );
+        return rateRepo.findRatesByCarId(existingCar.getId());
+    }
+    
     @Override
     public Rate addRate(RateDTO rateDTO) {
         Rate rate = new Rate();
