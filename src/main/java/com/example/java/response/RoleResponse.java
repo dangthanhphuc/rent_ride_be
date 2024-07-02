@@ -14,7 +14,7 @@ public class RoleResponse {
 
     private String name;
 
-    public static RoleResponse fromRole(Role role) {
+    public static RoleResponse formRole(Role role) {
         return RoleResponse.builder()
                 .id(role.getId())
                 .name(role.getName())

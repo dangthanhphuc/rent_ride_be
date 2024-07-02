@@ -1,9 +1,9 @@
 package com.example.java.response;
 
-import com.example.java.entities.*;
+
+import com.example.java.entities.Car;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

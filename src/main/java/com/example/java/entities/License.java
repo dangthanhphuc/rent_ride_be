@@ -33,6 +33,5 @@ public class License {
 
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
-
 }
 
