@@ -1,5 +1,6 @@
 package com.example.java.controllers;
 
+
 import com.example.java.dtos.UtilityDTO;
 import com.example.java.entities.Utility;
 import com.example.java.exceptions.IdNotFoundException;
@@ -28,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,7 +39,9 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/utilities")
 public class UtilityController {
+
          private final IUtilityService utilityService;
+
 
     @GetMapping("")
     public ResponseEntity<ResponseObject> getUtilities() {
@@ -51,9 +55,11 @@ public class UtilityController {
                         .status(OK)
                         .statusCode(OK.value())
                         .data(utilities.stream().map(UtilityResponse::formUtility).toList())
+
                         .build()
         );
     }
+
 
     @PostMapping("/add")
     public ResponseEntity<ResponseObject> addUtility(
@@ -134,4 +140,5 @@ public class UtilityController {
                         .build()
         );
     }
+
 }

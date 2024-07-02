@@ -23,6 +23,12 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
 
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/rates")
@@ -141,4 +147,5 @@ public class RateController {
                         .build()
         );
     }
+
 }

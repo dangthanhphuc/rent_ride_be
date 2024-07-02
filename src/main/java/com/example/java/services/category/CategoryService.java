@@ -1,8 +1,10 @@
 package com.example.java.services.category;
 
+
 import com.example.java.dtos.CategoryDTO;
 import com.example.java.entities.Category;
 import com.example.java.exceptions.IdNotFoundException;
+
 import com.example.java.repositories.CategoryRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CategoryService implements ICategoryService{
+
     private final CategoryRepo categoryRepo;
 
     @Override
@@ -55,6 +58,7 @@ public class CategoryService implements ICategoryService{
                         () -> new IdNotFoundException("Category id : " + categoryId +" is not found")
                 );
     }
+
 
     @Override
     public List<Category> getCategories() {

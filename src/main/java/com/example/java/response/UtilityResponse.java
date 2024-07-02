@@ -2,6 +2,7 @@ package com.example.java.response;
 
 import com.example.java.entities.Utility;
 
+
 public class UtilityResponse {
     private Long id;
 
