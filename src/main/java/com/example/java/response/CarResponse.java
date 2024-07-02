@@ -1,12 +1,7 @@
 package com.example.java.response;
 
 import com.example.java.entities.Car;
-import com.example.java.entities.Delivery;
-import com.example.java.entities.Model;
-import com.example.java.entities.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -87,7 +87,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         List<Pair<String, String>> byPassToken = Arrays.asList(
                 Pair.of("**", "GET"),
-                Pair.of("**", "POST")
+                Pair.of("**", "POST"),
+                Pair.of("**", "PUT"),
+                Pair.of("**", "DELETE")
         );
 
         for(Pair<String, String> pair : byPassToken) {

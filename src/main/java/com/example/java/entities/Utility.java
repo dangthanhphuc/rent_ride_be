@@ -17,5 +17,4 @@ public class Utility {
 
     @Column(name = "name", nullable = false)
     private String name;
-
 }

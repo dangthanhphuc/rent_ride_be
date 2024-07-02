@@ -43,7 +43,7 @@ public class UserResponse {
                 .email(user.getEmail())
                 .dateOfBirth(user.getDateOfBirth())
                 .username(user.getUsername())
-                .roleResponse(RoleResponse.fromRole(user.getRole()))
+                .roleResponse(RoleResponse.formRole(user.getRole()))
                 .licenseResponse(LicenseResponse.fromLicense(user.getLicence()))
                 .build();
     }
