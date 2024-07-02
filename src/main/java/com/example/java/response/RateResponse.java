@@ -1,13 +1,12 @@
 package com.example.java.response;
 
 import com.example.java.entities.Rate;
+import com.example.java.entities.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
-
 @Setter
 @Getter
 @Builder

@@ -72,8 +72,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         } catch(AccessDeniedException e) {
             response.sendError(
-                    HttpServletResponse.SC_FORBIDDEN,
-                    STR."User does not have access : \{e.getMessage()}"
+                    HttpServletResponse.SC_FORBIDDEN, "User does not have access :" +e.getMessage()
             );
         } catch (Exception e){
             response.sendError(
@@ -88,7 +87,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         List<Pair<String, String>> byPassToken = Arrays.asList(
                 Pair.of("**", "GET"),
-                Pair.of("**", "POST")
+                Pair.of("**", "POST"),
+                Pair.of("**", "PUT"),
+                Pair.of("**", "DELETE")
         );
 
         for(Pair<String, String> pair : byPassToken) {
