@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Setter
 @Getter
@@ -45,6 +46,9 @@ public class Car {
     @Column(name = "over_fee", nullable = false)
     private int overFee;
 
+    @Column(name = "instant", columnDefinition = "bit default 0")
+    private boolean instant;
+
     @ManyToOne
     @JoinColumn(name = "model_id", nullable = false)
     private Model model;
@@ -58,5 +62,12 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "car")
+    private List<UtilityDetail> utilityDetail;
+
+    @OneToMany(mappedBy = "car")
+    private List<Rate> rates;
+
 }
 

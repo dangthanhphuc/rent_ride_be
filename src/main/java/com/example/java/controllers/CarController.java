@@ -36,7 +36,7 @@ public class CarController {
         return ResponseEntity.ok().body(
                 ResponseObject.builder()
                         .timeStamp(LocalDateTime.now())
-                        .message("Appointment created successfully !")
+                        .message("Brands get successfully !")
                         .status(OK)
                         .statusCode(OK.value())
                         .data(cars.stream().map(CarResponse::formCar).toList())
