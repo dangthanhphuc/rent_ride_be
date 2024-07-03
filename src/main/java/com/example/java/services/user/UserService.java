@@ -1,19 +1,23 @@
 package com.example.java.services.user;
 
 import ch.qos.logback.classic.spi.IThrowableProxy;
+import com.example.java.dtos.LoginDTO;
+import com.example.java.dtos.RegisterDTO;
 import com.example.java.dtos.UserDTO;
 import com.example.java.entities.License;
 import com.example.java.entities.Role;
 import com.example.java.entities.Trip;
 import com.example.java.entities.User;
-import com.example.java.exceptions.IdNotFoundException;
-import com.example.java.exceptions.PayloadTooLargeException;
-import com.example.java.exceptions.UnsupportedMediaTypeException;
+import com.example.java.exceptions.*;
 import com.example.java.repositories.LicenseRepo;
 import com.example.java.repositories.RoleRepo;
 import com.example.java.repositories.UserRepo;
 import com.example.java.utils.FileUtils;
+import com.example.java.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,8 +30,12 @@ import java.util.List;
 public class UserService implements IUserService{
 
     private final UserRepo userRepo;
-    private RoleRepo roleRepo;
-    private LicenseRepo licenseRepo;
+    private final RoleRepo roleRepo;
+    private final LicenseRepo licenseRepo;
+
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtils jwtTokenUtils;
     @Transactional(rollbackFor = {IdNotFoundException.class, UnsupportedMediaTypeException.class, PayloadTooLargeException.class, IOException.class})
     @Override
     public String changeProfileImage(Long id, MultipartFile file) throws IdNotFoundException, UnsupportedMediaTypeException, PayloadTooLargeException, IOException {
@@ -118,5 +126,59 @@ public class UserService implements IUserService{
     @Override
     public List<User> getUsers() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public User register(RegisterDTO registerDTO) throws IdNotFoundException {
+        Role role = roleRepo.findById(1L)
+                .orElseThrow(
+                        () -> new IdNotFoundException("Role id USER is not found")
+                );
+
+        // Encode Password
+        String passwordEncoded = passwordEncoder.encode(registerDTO.getPassword());
+
+        User user = User.builder()
+                .username(registerDTO.getUsername())
+                .password(passwordEncoded)
+                .email(registerDTO.getEmail())
+                .name(registerDTO.getName())
+                .phoneNumber(registerDTO.getPhoneNumber())
+                .dateOfBirth(registerDTO.getDateOfBirth())
+                .role(role)
+                .build();
+
+        return userRepo.save(user);
+    }
+
+    @Override
+    public String login(LoginDTO loginDTO) throws NotMatchException {
+        User existingUser = userRepo.findByUsername(loginDTO.getUsername())
+                .orElseThrow(
+                        () -> new NotMatchException("Username not found !")
+                );
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                loginDTO.getUsername(), loginDTO.getPassword(),
+                existingUser.getAuthorities()
+        ); // Tạo authenticationToken đáng tin cậy
+
+        authenticationManager.authenticate(authenticationToken); // Xác thực thông tin của authenticationToken
+
+        return jwtTokenUtils.generateToken(existingUser);
+    }
+
+    @Override
+    public User getUserByToken(String token) throws ExpiredException, DataNotFoundException {
+        if(jwtTokenUtils.isTokenExpired(token)){
+            throw new ExpiredException("Token is expired");
+        }
+        String username = jwtTokenUtils.getUsernameFromToken(token);
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(
+                        () -> new DataNotFoundException("Username not found !")
+                );
+
+        return user;
     }
 }

@@ -47,4 +47,14 @@ public class CarImageService implements ICarImageService {
 
         return carImageRepo.saveAll(carImages);
     }
+
+    @Override
+    public List<CarImage> getImagesByCar(Long carId) throws IdNotFoundException {
+        Car existingCar = carRepo.findById(carId)
+                .orElseThrow(
+                        () -> new IdNotFoundException("Car not found")
+                );
+
+        return carImageRepo.findCarImagesByCarId(carId);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.java.services.car_image;
 
 import com.example.java.entities.CarImage;
+import com.example.java.entities.Rate;
 import com.example.java.exceptions.IdNotFoundException;
 import com.example.java.exceptions.PayloadTooLargeException;
 import com.example.java.exceptions.UnsupportedMediaTypeException;
@@ -12,5 +13,5 @@ import java.util.List;
 public interface ICarImageService {
 
     List<CarImage> addImages(Long id, List<MultipartFile> files) throws IdNotFoundException, UnsupportedMediaTypeException, PayloadTooLargeException, IOException;
-
+    List<CarImage> getImagesByCar(Long carId) throws IdNotFoundException;
 }

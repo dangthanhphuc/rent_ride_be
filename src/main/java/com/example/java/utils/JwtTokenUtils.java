@@ -44,7 +44,7 @@ public class JwtTokenUtils {
         return Keys.hmacShaKeyFor(secretKeyDecode);
     }
 
-    private String generateToken(User user) {
+    public String generateToken(User user) {
         // Tạo Claims
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", user.getUsername());
@@ -52,7 +52,7 @@ public class JwtTokenUtils {
 
         return Jwts.builder()
                 .claims(claims)
-                .subject(user.getName())
+                .subject(user.getUsername())
                 .issuer("https://localhost:8088/") // Issuer cung cấp thông tin về địa chỉ (URL hoặc chuỗi định danh) của đơn vị tạo ra JWT. Nhằm xác định nguồn gốc của JWT và có thể hữu ích trong việc xác thực và kiểm tra tính toàn vẹn của JWT.
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiration * 1000L))
