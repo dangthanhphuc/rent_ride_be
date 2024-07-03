@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class UserResponse {
     private Long id;
+
     private String name;
 
     @JsonProperty("phone_number")
@@ -35,8 +36,9 @@ public class UserResponse {
     @JsonProperty("license")
     private LicenseResponse licenseResponse;
 
+
     public static UserResponse fromUser(User user) {
-        return UserResponse.builder()
+        UserResponse userResponse =  UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .phoneNumber(user.getPhoneNumber())
@@ -44,7 +46,10 @@ public class UserResponse {
                 .dateOfBirth(user.getDateOfBirth())
                 .username(user.getUsername())
                 .roleResponse(RoleResponse.formRole(user.getRole()))
-                .licenseResponse(LicenseResponse.fromLicense(user.getLicence()))
                 .build();
+        if(user.getLicence() != null) {
+            userResponse.setLicenseResponse(LicenseResponse.fromLicense(user.getLicence()));
+        }
+        return userResponse;
     }
 }

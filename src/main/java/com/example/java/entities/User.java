@@ -37,7 +37,7 @@ public class User implements UserDetails {
     @Column(name = "img_url")
     private String imgUrl;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
