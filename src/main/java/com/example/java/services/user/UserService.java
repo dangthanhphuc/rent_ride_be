@@ -3,6 +3,7 @@ package com.example.java.services.user;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import com.example.java.dtos.LoginDTO;
 import com.example.java.dtos.RegisterDTO;
+import com.example.java.dtos.UpdatePassDTO;
 import com.example.java.dtos.UserDTO;
 import com.example.java.entities.License;
 import com.example.java.entities.Role;
@@ -126,6 +127,29 @@ public class UserService implements IUserService{
     @Override
     public List<User> getUsers() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public void resetPassword(Long userId , UpdatePassDTO updatePassDTO) throws Exception {
+
+        User existingUser = userRepo.findById(userId)
+                .orElseThrow(
+                        () -> new IdNotFoundException("User id not found")
+                );
+
+        boolean isMatchesPass = passwordEncoder.matches(updatePassDTO.getOldPass(), existingUser.getPassword());
+        if( !isMatchesPass) {
+            throw new Exception("Old password does not match !");
+        }
+
+        String passwordEncode = passwordEncoder.encode(updatePassDTO.getNewPass());
+
+        existingUser.setPassword(passwordEncode);
+
+        userRepo.save(existingUser);
+
+        // Chưa clear token
+
     }
 
     @Override
