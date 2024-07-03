@@ -44,6 +44,7 @@ public class UserResponse {
                 .phoneNumber(user.getPhoneNumber())
                 .email(user.getEmail())
                 .dateOfBirth(user.getDateOfBirth())
+                .imgUrl("http://localhost:8080/images/profile_images/" + user.getImgUrl())
                 .username(user.getUsername())
                 .roleResponse(RoleResponse.formRole(user.getRole()))
                 .build();
