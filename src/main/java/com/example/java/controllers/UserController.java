@@ -14,7 +14,6 @@ import com.example.java.services.user.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -125,5 +124,4 @@ public class UserController {
     }
 
     // reset password
-
 }
