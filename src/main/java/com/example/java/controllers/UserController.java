@@ -110,7 +110,7 @@ public class UserController {
 
         LoginResponse loginResponse = LoginResponse.builder()
                 .token(token)
-                .userDetail(userDetail)
+                .userDetail(UserResponse.fromUser(userDetail))
                 .build();
 
         return ResponseEntity.ok().body(
