@@ -6,7 +6,6 @@ import com.example.java.exceptions.UnsupportedMediaTypeException;
 import com.example.java.response.ResponseObject;
 import com.example.java.services.user.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -54,5 +53,4 @@ public class UserController {
 
     // login
     // reset password
-
 }

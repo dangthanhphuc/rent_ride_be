@@ -3,7 +3,6 @@ package com.example.java.controllers;
 import com.example.java.dtos.CarDTO;
 import com.example.java.entities.Car;
 import com.example.java.entities.CarImage;
-import com.example.java.entities.Delivery;
 import com.example.java.exceptions.IdNotFoundException;
 import com.example.java.exceptions.PayloadTooLargeException;
 import com.example.java.exceptions.UnsupportedMediaTypeException;

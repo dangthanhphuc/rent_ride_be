@@ -1,6 +1,5 @@
 package com.example.java.controllers;
 
-
 import com.example.java.dtos.UtilityDTO;
 import com.example.java.entities.Utility;
 import com.example.java.exceptions.IdNotFoundException;
@@ -15,22 +14,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;

@@ -1,14 +1,11 @@
 package com.example.java.controllers;
 
-import com.example.java.dtos.RoleDTO;
 import com.example.java.dtos.TripDTO;
-import com.example.java.entities.Role;
 import com.example.java.entities.Trip;
 import com.example.java.exceptions.IdNotFoundException;
 import com.example.java.filter.InputInvalidFilter;
 import com.example.java.response.ResponseObject;
 import com.example.java.response.TripResponse;
-import com.example.java.services.role.IRoleService;
 import com.example.java.services.trip.ITripService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
