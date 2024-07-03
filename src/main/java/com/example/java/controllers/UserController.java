@@ -2,6 +2,7 @@ package com.example.java.controllers;
 
 import com.example.java.dtos.LoginDTO;
 import com.example.java.dtos.RegisterDTO;
+import com.example.java.dtos.UpdatePassDTO;
 import com.example.java.entities.User;
 import com.example.java.exceptions.IdNotFoundException;
 import com.example.java.exceptions.PayloadTooLargeException;
@@ -123,5 +124,39 @@ public class UserController {
         );
     }
 
-    // reset password
+    @PutMapping("/resetPass/{id}")
+    public ResponseEntity<ResponseObject> resetPassword(
+            @PathVariable("id") Long userId,
+            @RequestBody UpdatePassDTO updatePassDTO,
+            BindingResult result
+    ) throws Exception {
+        ResponseEntity<ResponseObject> isInvalid = InputInvalidFilter.checkInvalidInput(result);
+        if(isInvalid != null) {
+            return isInvalid;
+        }
+
+        if( !updatePassDTO.getNewPass().equals(updatePassDTO.getConfirmPass()) ) {
+            return ResponseEntity.badRequest().body(
+                    ResponseObject.builder()
+                            .timeStamp(LocalDateTime.now())
+                            .message("Password not match with confirm password !")
+                            .status(BAD_REQUEST)
+                            .statusCode(BAD_REQUEST.value())
+                            .data(null)
+                            .build()
+            );
+        }
+
+        userService.resetPassword(userId, updatePassDTO);
+
+        return ResponseEntity.ok().body(
+                ResponseObject.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .message("Reset password successfully !")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .data(null)
+                        .build()
+        );
+    }
 }
